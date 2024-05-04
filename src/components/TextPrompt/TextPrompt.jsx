@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
+import Loading from "../Loading/Loading";
 import "./TextPrompt.css";
 
-const apiKey = import.meta.env.VITE_API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey);
+import { MODEL_NAME, API_KEY } from "./../../utils/variables";
 
 const TextPrompt = () => {
+  const genAI = new GoogleGenerativeAI(API_KEY);
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -18,25 +19,42 @@ const TextPrompt = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const result = await model.generateContent(output);
+    setLoading(true);
+    const result = await model.generateContent(input);
     const response = await result.response;
-    console.log(response.text());
-    setOutput(response.text());
+
+    setOutput(
+      response
+        .text()
+        .replace(/\n/g, "<br />")
+        .replace(/"/g, "")
+        .replace(/\*([^*]+)\*/g, "<h3>$1</h3>")
+    );
+    setLoading(false);
   };
 
   return (
     <>
-      <div>
-        <textarea
-          value={input}
-          onChange={handleInputChange}
-          placeholder="Enter your prompt here..."
-        />
-      </div>
-      <button className="chat-form-button" type="button" onClick={handleSubmit}>
-        Generar
-      </button>
-      <div className="response">{output && <p>{output}</p>}</div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <form>
+          <textarea
+            value={input}
+            onChange={handleInputChange}
+            placeholder="Enter your prompt here..."
+          />
+
+          <button
+            className="chat-form-button"
+            type="button"
+            onClick={handleSubmit}
+          >
+            Generar
+          </button>
+          <div className="response">{output && <p>{output}</p>}</div>
+        </form>
+      )}
     </>
   );
 };

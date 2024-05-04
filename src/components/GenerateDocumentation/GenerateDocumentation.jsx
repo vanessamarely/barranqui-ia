@@ -1,17 +1,18 @@
-import {
-  GoogleGenerativeAI,
-  HarmBlockThreshold,
-  HarmCategory,
-} from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useEffect, useState } from "react";
 import { promst } from "../../utils/prompts";
 
+import {
+  MODEL_NAME,
+  API_KEY,
+  generationConfig,
+  safetySettings,
+} from "./../../utils/variables";
+
 import "./GenerateDocumentation.css";
 
-const apiKey = import.meta.env.VITE_API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey);
-
 const GenerateDocumentation = () => {
+  const genAI = new GoogleGenerativeAI(API_KEY);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState([]);
@@ -22,27 +23,11 @@ const GenerateDocumentation = () => {
   const [message, setMessage] = useState("");
   const [savedtext, setSavedText] = useState("");
 
-  // generation settings for the model
-  const generationConfig = {
-    //stopSequences: ["red"],
-    // maxOutputTokens: 200,
-    temperature: 0.7,
-    topP: 0.1,
-    topK: 16,
-  };
-
-  // safety settings for the model
-  const safetySettings = [
-    {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-    },
-  ];
 
   const fetchData = async () => {
     if (!!selectedDocumentType) {
       const model = genAI.getGenerativeModel({
-        model: "gemini-pro",
+        model: MODEL_NAME,
         generationConfig,
         safetySettings,
       });
@@ -95,7 +80,9 @@ const GenerateDocumentation = () => {
 
   useEffect(() => {
     {
-      const selected = promst.find((item) => item.name === selectedDocumentType);
+      const selected = promst.find(
+        (item) => item.name === selectedDocumentType
+      );
       setSelectPromptMessage(selected?.prompt);
     }
   }, [selectedDocumentType]);
@@ -127,13 +114,11 @@ const GenerateDocumentation = () => {
           onChange={handleDocumentType}
         >
           <option value="">Selected a Document Type</option>
-          {
-            promst?.map((item) => (
-              <option key={item?.id} value={item?.name}>
-                {item?.name}
-              </option>
-            ))
-          }
+          {promst?.map((item) => (
+            <option key={item?.id} value={item?.name}>
+              {item?.name}
+            </option>
+          ))}
         </select>
       </div>
       <div className="generate-documentation__container-textarea">

@@ -1,42 +1,27 @@
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
-import {
-  GoogleGenerativeAI,
-  HarmBlockThreshold,
-  HarmCategory,
-} from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import Loading from "../Loading/Loading";
 import "./Chat.style.css";
 import avatar from "./../../assets/avatar.svg";
 
-const apiKey = import.meta.env.VITE_API_KEY;
-
-const genAI = new GoogleGenerativeAI(apiKey);
-
-const safetySettings = [
-  {
-    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-    threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-  },
-];
-
-const generationConfig = {
-  stopSequences: ["red"],
-  maxOutputTokens: 100,
-  temperature: 0.5,
-  topP: 0.1,
-  topK: 16,
-};
-
+import {
+  MODEL_NAME,
+  API_KEY,
+  generationConfig,
+  safetySettings,
+} from "./../../utils/variables";
+console.log(API_KEY);
 const Chat = () => {
+  const genAI = new GoogleGenerativeAI(API_KEY);
   const [loading, setLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
-  const bottomRef = useRef(null);
+
   const [message, setMessage] = useState(
     "Hello Javascript expert! I am a student and I am learning about Javascript, could you please help me to learn some concepts?"
   );
 
   const model = genAI.getGenerativeModel({
-    model: "gemini-pro",
+    model: MODEL_NAME,
     generationConfig,
     safetySettings,
   });
@@ -44,16 +29,6 @@ const Chat = () => {
   const chat = model.startChat({
     history: [],
   });
-
-  const scrollToBottom = () => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    if(!loading){
-      scrollToBottom();
-    }
-  }, [loading]);
 
   const addMessageToHistory = (role, message) => {
     setChatHistory((prevHistory) => [...prevHistory, { role, parts: message }]);
@@ -129,8 +104,6 @@ const Chat = () => {
           Generate Text
         </button>
       </form>
-      
-      <div ref={bottomRef} />
     </div>
   );
 };

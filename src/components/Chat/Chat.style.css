@@ -1,7 +1,15 @@
+.home-box {
+  height: calc(90vh - 2rem);
+  overflow-y: scroll;
+}
+
 .chat-container {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  border-radius: 30px;
+  padding: 1rem;
+  border: 1px solid #233c77;
 }
 
 .chat-response {
@@ -20,25 +28,24 @@
   height: 50px;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #233c77;
   margin: 2em;
 }
 
 .chat-form-button {
-    background-color: #233c77;
-    border-radius: 30px;
-    color: #ffff;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+  background-color: #233c77;
+  border-radius: 30px;
+  color: #ffff;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .chat-message {
-  border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
   margin: 2em;

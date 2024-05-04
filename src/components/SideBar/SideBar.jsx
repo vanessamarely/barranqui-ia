@@ -24,6 +24,11 @@ const SideBar = () => {
               Buddy
             </NavLink>
           </li>
+          <li>
+            <NavLink className="list-options-item" to="/story">
+              Story
+            </NavLink>
+          </li>
         </ul>
       </div>
     </>
