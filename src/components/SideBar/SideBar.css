@@ -1,0 +1,57 @@
+.sidebar-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #181D31;
+    width: 300px;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}
+
+.image-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    top: 0;
+    position: absolute;
+}
+
+.image-container img {
+    width: 100%;
+}
+
+.list-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.list-options li {
+    margin: 10px 0;
+    width: 100%;
+    display: flex;
+    align-items: centert;
+    justify-content: flex-start;
+}
+
+.list-options li a {
+    color: white;
+    text-decoration: none;
+}
+
+.list-options-item {
+    padding: 1em;
+    width: 100%;
+}
+
+.list-options-item:active, .list-options-item:hover, .list-options-item.active {
+    background-color: #233C77;
+}
