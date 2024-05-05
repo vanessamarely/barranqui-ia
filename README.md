@@ -5,8 +5,8 @@ https://docs.google.com/presentation/d/1rEsfjHJ9TZfaLVpc2EvOfFwNYSsaVqjXifanhXuD
 
 https://vanessamarely.medium.com/c%C3%B3mo-crear-un-text-prompt-con-la-libreria-generative-ai-en-react-9c15b5107a53
 
+https://vanessamarely.medium.com/gu%C3%ADa-para-construir-un-chat-con-la-api-gemini-ai-con-react-ac655702947b
 
-https://vanessamarely.medium.com/c%C3%B3mo-crear-un-text-prompt-con-la-libreria-generative-ai-en-react-9c15b5107a53](https://vanessamarely.medium.com/gu%C3%ADa-para-construir-un-chat-con-la-api-gemini-ai-con-react-ac655702947b)
 
 # Stack
 
